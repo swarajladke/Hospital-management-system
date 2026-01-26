@@ -1,0 +1,82 @@
+service: hms-email-service
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: python3.11
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  memorySize: 256
+  timeout: 30
+  
+  # Environment variables
+  environment:
+    SMTP_HOST: ${env:SMTP_HOST, 'smtp.gmail.com'}
+    SMTP_PORT: ${env:SMTP_PORT, '587'}
+    SMTP_USER: ${env:SMTP_USER, ''}
+    SMTP_PASS: ${env:SMTP_PASS, ''}
+    FROM_EMAIL: ${env:FROM_EMAIL, ''}
+
+  # API Gateway CORS configuration
+  httpApi:
+    cors:
+      allowedOrigins:
+        - http://localhost:5173
+        - http://127.0.0.1:5173
+        - http://localhost:8000
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - POST
+        - OPTIONS
+      allowCredentials: true
+
+functions:
+  sendEmail:
+    handler: handler.send_email
+    description: Send transactional emails for HMS
+    events:
+      - http:
+          path: email
+          method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+      - http:
+          path: email
+          method: options
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+
+plugins:
+  - serverless-offline
+  - serverless-python-requirements
+
+custom:
+  # Python requirements configuration
+  pythonRequirements:
+    dockerizePip: false
+    slim: true
+    strip: false
+    
+  # Serverless offline configuration
+  serverless-offline:
+    httpPort: 3000
+    lambdaPort: 3002
+    noPrependStageInUrl: true
+
+package:
+  individually: true
+  patterns:
+    - '!node_modules/**'
+    - '!.git/**'
+    - '!.env*'
+    - '!README.md'
+    - 'handler.py'

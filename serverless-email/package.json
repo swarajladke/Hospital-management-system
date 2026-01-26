@@ -1,0 +1,21 @@
+{
+    "name": "hms-email-service",
+    "version": "1.0.0",
+    "description": "Serverless email microservice for Hospital Management System",
+    "author": "HMS Team",
+    "license": "MIT",
+    "devDependencies": {
+        "serverless": "^3.38.0",
+        "serverless-offline": "^13.3.0",
+        "serverless-python-requirements": "^6.0.0"
+    },
+    "scripts": {
+        "start": "serverless offline",
+        "deploy": "serverless deploy",
+        "deploy:prod": "serverless deploy --stage prod",
+        "remove": "serverless remove",
+        "logs": "serverless logs -f sendEmail",
+        "invoke": "serverless invoke local -f sendEmail -d '{\"body\": \"{\\\"action\\\": \\\"SIGNUP_WELCOME\\\", \\\"recipient\\\": \\\"test@example.com\\\", \\\"data\\\": {\\\"name\\\": \\\"Test User\\\", \\\"role\\\": \\\"PATIENT\\\"}}\"}'",
+        "test": "python handler.py"
+    }
+}
