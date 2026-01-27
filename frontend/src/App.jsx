@@ -7,6 +7,7 @@ import SignupPage from './pages/SignupPage';
 import DoctorDashboard from './pages/DoctorDashboard';
 import PatientDashboard from './pages/PatientDashboard';
 import SettingsPage from './pages/SettingsPage';
+import CalendarPage from './pages/CalendarPage';
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                             {/* Settings (authenticated) */}
                             <Route element={<ProtectedRoute allowedRoles={['DOCTOR', 'PATIENT']} />}>
                                 <Route path="/settings" element={<SettingsPage />} />
+                                <Route path="/calendar" element={<CalendarPage />} />
                             </Route>
 
                             {/* Redirect root based on role */}

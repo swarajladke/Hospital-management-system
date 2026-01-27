@@ -1,2 +1,3 @@
-# No external dependencies needed for the Lambda function
-# Python's standard library provides smtplib and email modules
+# No external dependencies needed for the Lambda function (standard AWS environment)
+# However, python-dotenv is useful for local development
+python-dotenv==1.0.0

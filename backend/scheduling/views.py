@@ -22,7 +22,6 @@ from .serializers import (
 )
 from accounts.permissions import IsDoctor, IsPatient
 from services.email_client import send_email
-from integrations.google_calendar import create_calendar_event
 
 logger = logging.getLogger(__name__)
 
@@ -338,39 +337,6 @@ class BookingListCreateView(APIView):
             )
         except Exception as e:
             logger.error(f"Failed to send booking confirmation email: {e}")
-        
-        # Create Google Calendar events
-        try:
-            # Doctor's calendar event
-            if slot.doctor.profile.has_google_calendar:
-                event_id = create_calendar_event(
-                    user=slot.doctor,
-                    summary=f"Appointment with {request.user.get_full_name() or request.user.username}",
-                    description=f"Patient notes: {notes}" if notes else "Appointment booking",
-                    date=slot.date,
-                    start_time=slot.start_time,
-                    end_time=slot.end_time
-                )
-                if event_id:
-                    booking.doctor_calendar_event_id = event_id
-            
-            # Patient's calendar event
-            if request.user.profile.has_google_calendar:
-                event_id = create_calendar_event(
-                    user=request.user,
-                    summary=f"Appointment with Dr. {slot.doctor.get_full_name() or slot.doctor.username}",
-                    description=f"Your notes: {notes}" if notes else "Medical appointment",
-                    date=slot.date,
-                    start_time=slot.start_time,
-                    end_time=slot.end_time
-                )
-                if event_id:
-                    booking.patient_calendar_event_id = event_id
-            
-            booking.save()
-            
-        except Exception as e:
-            logger.error(f"Failed to create calendar events: {e}")
         
         return Response(
             BookingSerializer(booking).data,

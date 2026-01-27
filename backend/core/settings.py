@@ -129,7 +129,7 @@ REST_FRAMEWORK = {
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = os.getenv(
     'CORS_ALLOWED_ORIGINS', 
-    'http://localhost:5173,http://127.0.0.1:5173'
+    'http://localhost:5178,http://127.0.0.1:5178,http://localhost:5173,http://127.0.0.1:5173'
 ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
@@ -137,17 +137,12 @@ CORS_ALLOW_CREDENTIALS = True
 # CSRF Configuration for session-based auth with React frontend
 CSRF_TRUSTED_ORIGINS = os.getenv(
     'CSRF_TRUSTED_ORIGINS',
-    'http://localhost:5173,http://127.0.0.1:5173'
+    'http://localhost:5178,http://127.0.0.1:5178,http://localhost:5173,http://127.0.0.1:5173'
 ).split(',')
 
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read CSRF token
-
-# Google OAuth Configuration
-GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID', '')
-GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET', '')
-GOOGLE_REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI', 'http://localhost:8000/api/auth/google/callback/')
 
 # Email Service Configuration (Lambda endpoint)
 EMAIL_SERVICE_URL = os.getenv('EMAIL_SERVICE_URL', 'http://localhost:3000/dev/email')

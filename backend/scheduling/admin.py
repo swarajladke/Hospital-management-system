@@ -36,7 +36,7 @@ class BookingAdmin(admin.ModelAdmin):
         'patient__username', 'patient__first_name', 'patient__last_name',
         'doctor__username', 'doctor__first_name', 'doctor__last_name'
     ]
-    readonly_fields = ['created_at', 'doctor_calendar_event_id', 'patient_calendar_event_id']
+    readonly_fields = ['created_at']
     raw_id_fields = ['patient', 'doctor', 'slot']
     
     fieldsets = (
@@ -45,10 +45,6 @@ class BookingAdmin(admin.ModelAdmin):
         }),
         ('Details', {
             'fields': ('notes',)
-        }),
-        ('Calendar Sync', {
-            'fields': ('doctor_calendar_event_id', 'patient_calendar_event_id'),
-            'classes': ('collapse',)
         }),
         ('Metadata', {
             'fields': ('created_at',),

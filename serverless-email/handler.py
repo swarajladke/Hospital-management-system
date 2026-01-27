@@ -13,6 +13,10 @@ import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (for local development)
+load_dotenv()
 
 
 def get_email_template(action, data):
@@ -217,10 +221,17 @@ def send_smtp_email(recipient, subject, body_text, body_html=None):
     from_email = os.environ.get('FROM_EMAIL', smtp_user)
     
     if not smtp_user or not smtp_pass:
-        print(f"[EMAIL] SMTP not configured. Would send to {recipient}:")
-        print(f"  Subject: {subject}")
-        print(f"  Body: {body_text[:200]}...")
-        return True  # Return True for local development
+        print("[EMAIL] CRITICAL: SMTP_USER or SMTP_PASS not configured!")
+        print(f"  SMTP_HOST: {smtp_host}")
+        print(f"  SMTP_PORT: {smtp_port}")
+        print(f"  FROM_EMAIL: {from_email}")
+        
+        # If we're in offline mode or local test, don't fail but return False
+        if os.environ.get('IS_OFFLINE') or os.environ.get('PYTHON_TEST'):
+            print(f"  [OFFLINE] Would send to {recipient} with subject: {subject}")
+            return True
+            
+        return False
     
     # Create message
     msg = MIMEMultipart('alternative')
@@ -262,7 +273,7 @@ def send_email(event, context):
         "data": { ... template data ... }
     }
     """
-    print(f"[EMAIL] Received event: {json.dumps(event)}")
+    print(f"[EMAIL] Received event")
     
     # Handle CORS preflight
     if event.get('httpMethod') == 'OPTIONS':

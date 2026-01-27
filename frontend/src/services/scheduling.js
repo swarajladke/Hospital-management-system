@@ -65,24 +65,3 @@ export const doctorService = {
     },
 };
 
-// ==================== Google Calendar Services ====================
-
-export const calendarService = {
-    // Get OAuth authorization URL
-    getAuthUrl: async () => {
-        const response = await api.get('/integrations/google/auth-url/');
-        return response.data;
-    },
-
-    // Check if calendar is connected
-    getStatus: async () => {
-        const response = await api.get('/integrations/google/status/');
-        return response.data;
-    },
-
-    // Disconnect Google Calendar
-    disconnect: async () => {
-        const response = await api.post('/integrations/google/disconnect/');
-        return response.data;
-    },
-};

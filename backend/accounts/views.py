@@ -62,7 +62,9 @@ class SignupView(APIView):
                 # Don't fail signup if email fails
                 logger.error(f"Failed to send welcome email: {e}")
             
-            logger.info(f"New user registered: {user.username} as {user.profile.role}")
+            # Auto-login the user to establish session
+            login(request, user)
+            logger.info(f"New user registered and logged in: {user.username} as {user.profile.role}")
             
             return Response({
                 'message': 'Registration successful',

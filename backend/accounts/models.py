@@ -5,6 +5,7 @@ Extends Django's built-in User model with role and OAuth token storage.
 
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 
 class UserProfile(models.Model):
@@ -31,16 +32,17 @@ class UserProfile(models.Model):
         choices=ROLE_CHOICES,
         db_index=True
     )
-    google_refresh_token = models.TextField(
-        blank=True, 
-        null=True,
-        help_text="Encrypted Google OAuth refresh token for calendar access"
-    )
     phone = models.CharField(max_length=15, blank=True)
     specialization = models.CharField(
         max_length=100, 
         blank=True,
         help_text="Doctor's specialization (only for doctors)"
+    )
+    ical_token = models.UUIDField(
+        default=uuid.uuid4, 
+        unique=True, 
+        editable=False,
+        help_text="Unique token for iCal feed subscription"
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -60,7 +62,3 @@ class UserProfile(models.Model):
     @property
     def is_patient(self):
         return self.role == 'PATIENT'
-    
-    @property
-    def has_google_calendar(self):
-        return bool(self.google_refresh_token)

@@ -14,8 +14,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = UserProfile
-        fields = ['role', 'phone', 'specialization', 'has_google_calendar', 'created_at']
-        read_only_fields = ['role', 'has_google_calendar', 'created_at']
+        fields = ['role', 'phone', 'specialization', 'ical_token', 'created_at']
+        read_only_fields = ['role', 'ical_token', 'created_at']
 
 
 class UserSerializer(serializers.ModelSerializer):

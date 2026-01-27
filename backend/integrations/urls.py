@@ -4,16 +4,10 @@ URL patterns for integrations app.
 
 from django.urls import path
 from .views import (
-    GoogleOAuthURLView,
-    GoogleOAuthCallbackView,
-    GoogleCalendarStatusView,
-    GoogleCalendarDisconnectView,
+    ICalFeedView,
 )
 
 urlpatterns = [
-    # Google Calendar OAuth
-    path('google/auth-url/', GoogleOAuthURLView.as_view(), name='google_oauth_url'),
-    path('google/callback/', GoogleOAuthCallbackView.as_view(), name='google_oauth_callback'),
-    path('google/status/', GoogleCalendarStatusView.as_view(), name='google_calendar_status'),
-    path('google/disconnect/', GoogleCalendarDisconnectView.as_view(), name='google_calendar_disconnect'),
+    # Generic ICal Feed
+    path('calendar/feed/<uuid:token>/', ICalFeedView.as_view(), name='ical_feed'),
 ]

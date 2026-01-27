@@ -105,10 +105,6 @@ class Booking(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     
-    # Calendar sync status
-    doctor_calendar_event_id = models.CharField(max_length=255, blank=True)
-    patient_calendar_event_id = models.CharField(max_length=255, blank=True)
-    
     class Meta:
         db_table = 'booking'
         ordering = ['-created_at']

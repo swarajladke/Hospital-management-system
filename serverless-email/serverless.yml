@@ -58,6 +58,7 @@ functions:
 plugins:
   - serverless-offline
   - serverless-python-requirements
+  - serverless-dotenv-plugin
 
 custom:
   # Python requirements configuration
