@@ -7,7 +7,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("accounts", "0002_userprofile_ical_token"),
+        ("accounts", "0003_populate_unique_tokens"),
     ]
 
     operations = [
