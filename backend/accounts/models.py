@@ -44,6 +44,11 @@ class UserProfile(models.Model):
         editable=False,
         help_text="Unique token for iCal feed subscription"
     )
+    google_refresh_token = models.CharField(
+        max_length=255, 
+        blank=True, 
+        help_text="OAuth refresh token for Google Calendar"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

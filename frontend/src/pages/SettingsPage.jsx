@@ -224,6 +224,36 @@ export default function SettingsPage() {
                 </div>
             </div>
 
+            {/* Google Calendar Section */}
+            <div className="card mt-6">
+                <div className="card-header">
+                    <h2 className="text-lg font-semibold flex items-center gap-2">
+                        <Calendar className="w-5 h-5 text-gray-500" />
+                        Google Calendar Integration
+                    </h2>
+                </div>
+                <div className="card-body">
+                    <p className="text-sm text-gray-600 mb-4">
+                        Sync your appointments directly to your Google Calendar.
+                    </p>
+
+                    {user?.profile?.google_calendar_connected ? (
+                        <div className="flex items-center gap-2 text-green-600 bg-green-50 p-3 rounded-lg border border-green-200">
+                            <CheckCircle className="w-5 h-5" />
+                            <span className="font-medium">Connected to Google Calendar</span>
+                        </div>
+                    ) : (
+                        <button
+                            onClick={() => window.location.href = 'http://localhost:8000/api/accounts/google/login/'}
+                            className="btn-primary bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 flex items-center gap-2"
+                        >
+                            <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4" />
+                            Connect Google Calendar
+                        </button>
+                    )}
+                </div>
+            </div>
+
             {/* Account Info */}
             <div className="mt-6 p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center justify-between text-sm text-gray-500">

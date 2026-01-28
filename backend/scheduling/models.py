@@ -103,6 +103,11 @@ class Booking(models.Model):
         blank=True,
         help_text="Optional notes from the patient"
     )
+    google_event_id = models.CharField(
+        max_length=255, 
+        blank=True, 
+        help_text="Google Calendar Event ID"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:

@@ -12,10 +12,15 @@ from .models import UserProfile
 class UserProfileSerializer(serializers.ModelSerializer):
     """Serializer for UserProfile model."""
     
+    google_calendar_connected = serializers.SerializerMethodField()
+    
     class Meta:
         model = UserProfile
-        fields = ['role', 'phone', 'specialization', 'ical_token', 'created_at']
-        read_only_fields = ['role', 'ical_token', 'created_at']
+        fields = ['role', 'phone', 'specialization', 'ical_token', 'created_at', 'google_calendar_connected']
+        read_only_fields = ['role', 'ical_token', 'created_at', 'google_calendar_connected']
+
+    def get_google_calendar_connected(self, obj):
+        return bool(obj.google_refresh_token)
 
 
 class UserSerializer(serializers.ModelSerializer):

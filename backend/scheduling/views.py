@@ -21,7 +21,9 @@ from .serializers import (
     BookingCreateSerializer,
 )
 from accounts.permissions import IsDoctor, IsPatient
+from accounts.permissions import IsDoctor, IsPatient
 from services.email_client import send_email
+from services.google_calendar import GoogleCalendarService
 
 logger = logging.getLogger(__name__)
 
@@ -337,6 +339,12 @@ class BookingListCreateView(APIView):
             )
         except Exception as e:
             logger.error(f"Failed to send booking confirmation email: {e}")
+            
+        # Create Google Calendar Event
+        try:
+            GoogleCalendarService.create_event(booking)
+        except Exception as e:
+            logger.error(f"Failed to create Google Calendar event: {e}")
         
         return Response(
             BookingSerializer(booking).data,
