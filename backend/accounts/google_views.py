@@ -20,7 +20,7 @@ class GoogleLoginView(APIView):
                 include_granted_scopes='true',
                 prompt='consent'  # Force consent to ensure refresh token is returned
             )
-            )
+
             return redirect(authorization_url)
         except Exception as e:
             logger.error(f"Failed to generate Google Login URL: {e}")
