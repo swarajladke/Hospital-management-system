@@ -20,8 +20,6 @@ class GoogleLoginView(APIView):
                 include_granted_scopes='true',
                 prompt='consent'  # Force consent to ensure refresh token is returned
             )
-            print(f"DEBUG: Generated Auth URL: {authorization_url}")
-            print(f"DEBUG: Using Settings Redirect URI: {settings.GOOGLE_REDIRECT_URI}")
 
             return redirect(authorization_url)
         except Exception as e:
