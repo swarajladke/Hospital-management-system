@@ -208,7 +208,7 @@ export default function SettingsPage() {
                             </div>
                         ) : (
                             <button
-                                onClick={() => window.location.href = 'http://localhost:8000/api/accounts/google/login/'}
+                                onClick={() => window.location.href = 'http://localhost:8000/api/auth/google/login/'}
                                 className="btn-primary bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 flex items-center gap-2"
                             >
                                 <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4" />
