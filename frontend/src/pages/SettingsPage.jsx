@@ -185,44 +185,7 @@ export default function SettingsPage() {
                 </div>
             </div>
 
-            {/* iCal Feed Section */}
-            <div className="card mt-6">
-                <div className="card-header">
-                    <h2 className="text-lg font-semibold flex items-center gap-2">
-                        <Calendar className="w-5 h-5 text-gray-500" />
-                        iCal/ICS Calendar Feed
-                    </h2>
-                </div>
-                <div className="card-body">
-                    <p className="text-sm text-gray-600 mb-4">
-                        Subscribe to your appointments in any calendar app (Apple, Outlook, etc.) using this unique feed URL.
-                        <strong> Keep this URL private.</strong>
-                    </p>
-                    <div className="flex gap-2">
-                        <input
-                            type="text"
-                            readOnly
-                            value={`${window.location.protocol}//${window.location.hostname}:8000/api/integrations/calendar/feed/${user?.profile?.ical_token}/`}
-                            className="input font-mono text-xs bg-gray-50 flex-1"
-                        />
-                        <button
-                            onClick={() => {
-                                const url = `${window.location.protocol}//${window.location.hostname}:8000/api/integrations/calendar/feed/${user?.profile?.ical_token}/`;
-                                navigator.clipboard.writeText(url);
-                                setSuccess('iCal link copied to clipboard!');
-                            }}
-                            className="btn-secondary whitespace-nowrap"
-                            title="Copy to clipboard"
-                        >
-                            <Copy className="w-4 h-4 mr-2" />
-                            Copy
-                        </button>
-                    </div>
-                    <div className="mt-4 text-xs text-gray-500 italic">
-                        Tip: Open your calendar app and look for "Add Calendar from URL" or "Subscribe to Calendar".
-                    </div>
-                </div>
-            </div>
+
 
             {/* Google Calendar Section */}
             {user?.profile?.role === 'DOCTOR' && (
