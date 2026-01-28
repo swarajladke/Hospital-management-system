@@ -155,6 +155,11 @@ CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read CSRF token
 # Email Service Configuration (Lambda endpoint)
 EMAIL_SERVICE_URL = os.getenv('EMAIL_SERVICE_URL', 'http://localhost:3000/dev/email')
 
+# Google Calendar Configuration
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+GOOGLE_REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI')
+
 # Logging Configuration
 LOGGING = {
     'version': 1,
